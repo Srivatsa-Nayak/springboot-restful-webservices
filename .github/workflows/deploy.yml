@@ -23,6 +23,7 @@ jobs:
         uses: s4u/setup-maven-action@v1.7.0
         with:
           maven-version: 3.9.3
+          java-version: 17
 
       - name: Unit Tests
         run: mvn clean package

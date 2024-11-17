@@ -20,6 +20,15 @@ jobs:
           java-version: 17
           distribution: 'adopt'
 
+      - name: Cache Maven Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}-jdk17-maven3.9.3
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+
       - name: Setup maven
         uses: s4u/setup-maven-action@v1.7.0
         with:
@@ -28,3 +37,9 @@ jobs:
 
       - name: All the tests and Coverage Checks
         run: mvn clean install
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+         name: coverage-report
+         path: target/site/jacoco/index.html

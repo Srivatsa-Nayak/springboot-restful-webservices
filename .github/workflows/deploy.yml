@@ -1,0 +1,49 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - feature/github_workflow
+
+jobs:
+  run-unit-tests:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'adopt'
+
+      - name: Setup maven
+        uses: stCarolas/setup-maven@4.4
+        with:
+          maven-version: 3.9.3
+
+      - name: Unit Tests
+        run: mvn clean package
+
+      - name: Rename the artifact
+        run: cp target\springboot-blog-rest-api-1.0-SNAPSHOT.jar springboot-blog-rest-api=${{ github.sha }}.jar
+
+      - name: Save the artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: springboot-blog-rest-api
+          path: springboot-blog-rest-api=${{ github.sha }}.jar
+
+fake-deploy:
+  runs-on: self-hosted
+  needs: run-unit-tests
+  steps:
+    - name: Get the artifact
+      uses: actions/download-artifact@master
+      with:
+        name: springboot-blog-rest-api
+
+    - name: Fake-deploy
+      run: ls springboot-blog-rest-api*.jar

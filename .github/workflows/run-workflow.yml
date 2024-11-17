@@ -21,7 +21,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Setup maven
-        uses: s4u/setup-maven@v2
+        uses: s4u/setup-maven-action@v1.7.0
         with:
           maven-version: 3.9.3
 

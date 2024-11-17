@@ -36,14 +36,14 @@ jobs:
           name: springboot-blog-rest-api
           path: springboot-blog-rest-api=${{ github.sha }}.jar
 
-fake-deploy:
-  runs-on: self-hosted
-  needs: run-unit-tests
-  steps:
-    - name: Get the artifact
-      uses: actions/download-artifact@master
-      with:
-        name: springboot-blog-rest-api
+  fake-deploy:
+    runs-on: self-hosted
+    needs: run-unit-tests
+    steps:
+      - name: Get the artifact
+        uses: actions/download-artifact@master
+        with:
+          name: springboot-blog-rest-api
 
-    - name: Fake-deploy
-      run: ls springboot-blog-rest-api*.jar
+      - name: Fake-deploy
+        run: ls springboot-blog-rest-api*.jar

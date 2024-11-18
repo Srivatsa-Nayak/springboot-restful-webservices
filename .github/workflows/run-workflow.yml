@@ -12,7 +12,7 @@ jobs:
     runs-on: self-hosted
     steps :
       - name: 'Cleanup build folder'
-        shell: pwsh
+        shell: bash
         run: |
           if ($env:OS -eq 'Windows_NT') {
                  Write-Host "Current directory:"

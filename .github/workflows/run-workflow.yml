@@ -12,15 +12,27 @@ jobs:
     runs-on: self-hosted
     steps :
       - name: 'Cleanup build folder'
+        shell: pwsh
         run: |
-          echo "Current directory:"
-          pwd
-          echo "Before cleanup:"
-          ls -la ./
-          rm -rf ./* || true
-          rm -rf ./.??* || true
-          echo "After cleanup:"
-          ls -la ./
+          if ($env:OS -eq 'Windows_NT') {
+                 Write-Host "Current directory:"
+                 Get-Location
+                 Write-Host "Before cleanup:"
+                 Get-ChildItem -Force
+                 Remove-Item -Recurse -Force * -ErrorAction SilentlyContinue
+                 Remove-Item -Recurse -Force .??* -ErrorAction SilentlyContinue
+                 Write-Host "After cleanup:"
+                 Get-ChildItem -Force
+          } else {
+                 echo "Current directory:"
+                 pwd
+                 echo "Before cleanup:"
+                 ls -la ./
+                 rm -rf ./* || true
+                 rm -rf ./.??* || true
+                 echo "After cleanup:"
+                 ls -la ./
+          }
       
 
       - name: Checkout

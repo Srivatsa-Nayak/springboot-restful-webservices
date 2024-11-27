@@ -1,5 +1,6 @@
 package com.springboot.blog.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -10,6 +11,9 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(
+        description = "PostDto Model Information"
+)
 public class PostDto {
     private long id;
 

@@ -1,0 +1,49 @@
+ // this is a template for URI versioning
+
+    @GetMapping("/api/v1/posts/{id}")
+    public ResponseEntity<PostDto> getPostByIdV1(@PathVariable(name = "id") long id) {
+        return ResponseEntity.ok(postService.getPostById(id));
+    }
+
+    @GetMapping("/api/v2/posts/{id}")
+    public ResponseEntity<PostDtoV2> getPostByIdV2(@PathVariable(name = "id") long id) {
+        <PostController.getPostById>
+    }
+
+// this is a template for version through query parameters
+
+    @GetMapping(value = "/api/posts/{id}", params = "version=1")
+    public ResponseEntity<PostDto> getPostByIdV1(@PathVariable(name = "id") long id) {
+        return ResponseEntity.ok(postService.getPostById(id));
+    }
+
+    @GetMapping(value = "/api/posts/{id}" , params = "version=2")
+    public ResponseEntity<PostDtoV2> getPostByIdV2(@PathVariable(name = "id") long id) {
+        <PostController.getPostById>
+    }
+
+// through content headers
+
+    @GetMapping(value = "/api/posts/{id}", headers = "X-API-VERSION=1")
+    public ResponseEntity<PostDto> getPostByIdV1(@PathVariable(name = "id") long id) {
+        return ResponseEntity.ok(postService.getPostById(id));
+    }
+
+    // versioning the rest api -- refer txt file
+    @GetMapping(value = "/api/posts/{id}", headers = "X-API-VERSION=2")
+    public ResponseEntity<PostDtoV2> getPostByIdV2(@PathVariable(name = "id") long id) {
+        <PostController.getPostById>
+    }
+
+// through content negotiation
+
+    @GetMapping(value = "/api/posts/{id}", produces = "application/vnd.example.v1+json")
+    public ResponseEntity<PostDto> getPostByIdV1(@PathVariable(name = "id") long id) {
+        return ResponseEntity.ok(postService.getPostById(id));
+    }
+
+    // versioning the rest api -- refer Version-RESTAPI.txt file
+    @GetMapping(value = "/api/posts/{id}", produces = "application/vnd.example.v2+json")
+    public ResponseEntity<PostDtoV2> getPostByIdV2(@PathVariable(name = "id") long id) {
+        <PostController.getPostById>
+    }
